@@ -46,9 +46,10 @@ const signUp = async (req: Request, res: Response) => {
     'process.env.JWT_KEY!'
   )
 
-  // req.session = {
-  //   jwt: userJwt,
-  // };
+  req.session = {
+    ...req.session,
+    jwt: userJwt,
+  };
   
   res.status(201).send(user);
 }

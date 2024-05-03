@@ -43,7 +43,7 @@ const signUp = async (req: Request, res: Response) => {
       id: user.id,
       email: user.email,
     },
-    'process.env.JWT_KEY!'
+    process.env.JWT_KEY!
   )
 
   req.session = {

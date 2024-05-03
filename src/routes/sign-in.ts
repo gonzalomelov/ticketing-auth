@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
+
 import { UnauthorizedError } from '../errors/unauthorized-error';
 import { User } from '../models/user';
 import { Password } from '../services/password';

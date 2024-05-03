@@ -22,8 +22,12 @@ const signIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
+  if (!existingUser) {
+    throw new UnauthorizedError();
+  }
 
-  if (!existingUser || !(await Password.compare(existingUser.password, password))) {
+  const passwordsMatch = await Password.compare(existingUser.password, password);
+  if (!passwordsMatch) {
     throw new UnauthorizedError();
   }
 
@@ -33,7 +37,7 @@ const signIn = async (req: Request, res: Response) => {
       email: existingUser.email
     },
     process.env.JWT_KEY!
-);
+  );
 
   req.session = {
     ...req.session,

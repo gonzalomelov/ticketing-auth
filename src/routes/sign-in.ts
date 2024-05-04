@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 import { UnauthorizedError } from '../errors/unauthorized-error';
 import { User } from '../models/user';
-import { Password } from '../services/password';
+import { Password } from '../services/password.service';
 import { generateJwt } from '../services/jwt.service';
 import { validateRequest } from '../middlewares/validate-request.factory';
 import { setJwtSession } from '../services/session.service';

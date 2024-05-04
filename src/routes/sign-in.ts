@@ -5,7 +5,9 @@ import jwt from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/unauthorized-error';
 import { User } from '../models/user';
 import { Password } from '../services/password';
+import { generateJwt } from '../services/jwt.service';
 import { validateRequest } from '../middlewares/validate-request.factory';
+import { setJwtSession } from '../services/session.service';
 
 const router = express.Router();
 
@@ -32,18 +34,12 @@ const signIn = async (req: Request, res: Response) => {
     throw new UnauthorizedError();
   }
 
-  const userJwt = jwt.sign(
-    {
-      id: existingUser.id,
-      email: existingUser.email
-    },
-    process.env.JWT_KEY!
-  );
+  const userJwt = generateJwt({
+    id: existingUser.id,
+    email: existingUser.email
+  });
 
-  req.session = {
-    ...req.session,
-    jwt: userJwt
-  };
+  setJwtSession(req, userJwt);
 
   res.send(existingUser);
 };

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 
-import { UnauthorizedError } from '../errors/unauthorized-error';
+import { BadRequestError } from '../errors/bad-request-error';
 import { User } from '../models/user';
 import { Password } from '../services/password.service';
 import { generateJwt } from '../services/jwt.service';
@@ -25,12 +25,12 @@ const signin = async (req: Request, res: Response) => {
 
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
-    throw new UnauthorizedError();
+    throw new BadRequestError('Invalid email or password');
   }
 
   const passwordsMatch = await Password.compare(existingUser.password, password);
   if (!passwordsMatch) {
-    throw new UnauthorizedError();
+    throw new BadRequestError('Invalid email or password');
   }
 
   const userJwt = generateJwt({

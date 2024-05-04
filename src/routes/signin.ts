@@ -10,7 +10,7 @@ import { setJwtSession } from '../services/session.service';
 
 const router = express.Router();
 
-const signInValidations = [
+const signinValidations = [
   body('email')
     .isEmail()
     .withMessage('Email must be valid'),
@@ -20,7 +20,7 @@ const signInValidations = [
     .withMessage('Password is required'),
 ];
 
-const signIn = async (req: Request, res: Response) => {
+const signin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
@@ -43,6 +43,6 @@ const signIn = async (req: Request, res: Response) => {
   res.send(existingUser);
 };
 
-router.post('/api/users/signin', validateRequest(signInValidations), signIn);
+router.post('/api/users/signin', validateRequest(signinValidations), signin);
 
-export { router as signInRouter };
+export { router as signinRouter };

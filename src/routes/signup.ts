@@ -19,7 +19,7 @@ const signupValidations = [
     .withMessage('Password must be between 4 and 20 characters')
 ];
 
-const signup = async (req: Request, res: Response) => {
+const signupHandler = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
@@ -40,6 +40,6 @@ const signup = async (req: Request, res: Response) => {
   res.status(201).send(user);
 }
 
-router.post('/api/users/signup', validateRequest(signupValidations), signup);
+router.post('/api/users/signup', validateRequest(signupValidations), signupHandler);
 
 export { router as signupRouter };

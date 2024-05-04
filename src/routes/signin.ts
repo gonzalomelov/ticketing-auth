@@ -20,7 +20,7 @@ const signinValidations = [
     .withMessage('Password is required'),
 ];
 
-const signin = async (req: Request, res: Response) => {
+const signinHandler = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const existingUser = await User.findOne({ email });
@@ -43,6 +43,6 @@ const signin = async (req: Request, res: Response) => {
   res.send(existingUser);
 };
 
-router.post('/api/users/signin', validateRequest(signinValidations), signin);
+router.post('/api/users/signin', validateRequest(signinValidations), signinHandler);
 
 export { router as signinRouter };

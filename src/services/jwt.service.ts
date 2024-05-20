@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import { UserPayload } from '../middlewares/current-user';
+import { UserPayload } from '@gmvticketing/common';
 
 export const generateJwt = (user: UserPayload) => {
   return jwt.sign(

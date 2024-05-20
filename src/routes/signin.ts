@@ -1,11 +1,11 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 
-import { BadRequestError } from '../errors/bad-request-error';
+import { BadRequestError, validateRequest } from '@gmvticketing/common';
+
 import { User } from '../models/user';
 import { Password } from '../services/password.service';
 import { generateJwt } from '../services/jwt.service';
-import { validateRequest } from '../middlewares/validate-request.factory';
 import { setJwtSession } from '../services/session.service';
 
 const router = express.Router();

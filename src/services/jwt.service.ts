@@ -8,6 +8,9 @@ export const generateJwt = (user: UserPayload) => {
       id: user.id,
       email: user.email
     },
-    process.env.JWT_KEY!
+    process.env.JWT_KEY!,
+    {
+      expiresIn: '1m'
+    }
   );
 };
